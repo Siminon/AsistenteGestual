@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sistemagestual">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Always include this permission -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Include only if your app benefits from precise location access. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".GlobalData"
@@ -11,7 +17,9 @@
         android:label="Asistente Gestual"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:targetApi="31">
+
 
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -26,7 +34,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
+            android:value="${MAPS_API_KEY}" />
 
         <activity
             android:name=".Map"

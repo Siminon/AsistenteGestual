@@ -11,12 +11,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     int identOrigen = 0;
     int identDestino = 0;
     TextView resultados;
     Button buscar;
+    Button gpsBotton;
     conjuntoUbicaciones ubicaciones;
     Spinner origenText;
     Spinner destinoText;
@@ -25,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         ubicaciones = new conjuntoUbicaciones();
         buscar = (Button) findViewById(R.id.buscarBotton);
+        gpsBotton = (Button) findViewById(R.id.gpsBotton);
 
         //my button clic
         buscar.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    private void openGPS() {
+        Intent siguiente = new Intent(MainActivity.this, Map.class);
+        startActivity(siguiente);
+    }
 
     private void Buscar(){
         String textOrigen = origenText.getSelectedItem().toString();
@@ -92,20 +99,28 @@ public class MainActivity extends AppCompatActivity {
 
     private int asociarIdentificador(String ubi){
         int ident = 0;
-        if(ubi.equals("Aula 3.3")){
-            ident = 1;
-        } else if (ubi.equals("Aula Julio Ortega")) {
-            ident = 4;
-        } else if (ubi.equals("Consejeria Edificio 1") ){
-            ident = 6;
-        } else if (ubi.equals("Administracion") ){
-            ident = 7;
-        } else if (ubi.equals("Cafeteria") ){
-            ident = 8;
-        } else if (ubi.equals("Biblioteca") ){
-            ident = 11;
-        } else if (ubi.equals("Despachos")){
-            ident = 13;
+        switch (ubi) {
+            case "Aula 3.3":
+                ident = 1;
+                break;
+            case "Aula Julio Ortega":
+                ident = 4;
+                break;
+            case "Consejeria Edificio 1":
+                ident = 6;
+                break;
+            case "Administracion":
+                ident = 7;
+                break;
+            case "Cafeteria":
+                ident = 8;
+                break;
+            case "Biblioteca":
+                ident = 11;
+                break;
+            case "Despachos":
+                ident = 13;
+                break;
         }
         return ident;
     }
